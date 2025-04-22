@@ -10,18 +10,18 @@ In this paper, we propose **MuseTok**, a tokenization method for symbolic music,
 
 <div align="center">
   <img src="figures/overview.png" width=800 alt="">
-  <figcaption><strong>Fig.1</strong> Overview of MuseTok (left) and downstream generation (top right) and understanding tasks (bottom right).</figcaption>
+  <figcaption><strong>Fig.1</strong> Overview of MuseTok (left), with downstream generation tasks (top right) and understanding tasks (bottom right).</figcaption>
 </div>
 
-We represent audio demos and additional experiment results as follows to supplement some sections in the paper:
+We provide audio demonstrations and additional experimental results to supplement experiment sections of the paper, organized as follows:
 * Dataset (for Section 4.1)
 * Music Reconstruction (for Section 4.2)
 * Music Continuation (for Section 4.3)
-* How MuseTok Learns Music? (for Section 4.5)
+* How MuseTok Learns Music (for Section 4.5)
 
 # Dataset
 
-We utilize public-domain music data for model training as follows, with the representative samples shown for present the data characteristics of our mixed dataset:
+We utilize public-domain music data for model training, with representative samples provided below to show the characteristics of our datasets:
 
 <table class="audio-table">
   <thead>
@@ -112,11 +112,11 @@ We utilize public-domain music data for model training as follows, with the repr
 
 # Music Reconstruction
 
-We show some samples below to demonstrate the reconstruction performance of three models (**VAE**, **MuseTok-Small** and **MuseTok-Large**) comparing to the **Original** pieces (d: hidden dimension, D: quantization depth, K: codebook size):
+We present samples below to demonstrate the performance of three models (**VAE**, **MuseTok-Small** and **MuseTok-Large**) to reconstruct the **Original** pieces. Here, *d* denotes the hidden dimension, *D* the quantization depth, and *K* the codebook size.
 
-* **VAE** (d = 128)
-* **MuseTok-Small** (D = 8, K = 1024, d = 128)
-* **MuseTok-Large** (D = 16, K = 2048, d = 128)
+* **VAE** (*d* = 128)
+* **MuseTok-Small** (*D* = 8, *K* = 1024, *d* = 128)
+* **MuseTok-Large** (*D* = 16, *K* = 2048, *d* = 128)
 
 <table class="audio-table">
   <thead>
@@ -135,6 +135,18 @@ We show some samples below to demonstrate the reconstruction performance of thre
       <td><audio controls=""><source src="assets/demos/reconstruction_demo/musetok-large/id5_bar0.wav" type="audio/mpeg" /></audio></td>
     </tr>
     <tr>
+      <td><audio controls=""><source src="assets/demos/reconstruction_demo/original/id153_bar0_orig.wav" type="audio/mpeg" /></audio></td>
+      <td><audio controls=""><source src="assets/demos/reconstruction_demo/vae/id153_bar0.wav" type="audio/mpeg" /></audio></td>
+      <td><audio controls=""><source src="assets/demos/reconstruction_demo/musetok-small/id153_bar0.wav" type="audio/mpeg" /></audio></td>
+      <td><audio controls=""><source src="assets/demos/reconstruction_demo/musetok-large/id153_bar0.wav" type="audio/mpeg" /></audio></td>
+    </tr>
+    <tr>
+      <td><audio controls=""><source src="assets/demos/reconstruction_demo/original/id25_bar0_orig.wav" type="audio/mpeg" /></audio></td>
+      <td><audio controls=""><source src="assets/demos/reconstruction_demo/vae/id25_bar0.wav" type="audio/mpeg" /></audio></td>
+      <td><audio controls=""><source src="assets/demos/reconstruction_demo/musetok-small/id25_bar0.wav" type="audio/mpeg" /></audio></td>
+      <td><audio controls=""><source src="assets/demos/reconstruction_demo/musetok-large/id25_bar0.wav" type="audio/mpeg" /></audio></td>
+    </tr>
+    <tr>
       <td><audio controls=""><source src="assets/demos/reconstruction_demo/original/id19292_bar0_orig.wav" type="audio/mpeg" /></audio></td>
       <td><audio controls=""><source src="assets/demos/reconstruction_demo/vae/id19292_bar0.wav" type="audio/mpeg" /></audio></td>
       <td><audio controls=""><source src="assets/demos/reconstruction_demo/musetok-small/id19292_bar0.wav" type="audio/mpeg" /></audio></td>
@@ -145,18 +157,6 @@ We show some samples below to demonstrate the reconstruction performance of thre
       <td><audio controls=""><source src="assets/demos/reconstruction_demo/vae/id19336_bar0.wav" type="audio/mpeg" /></audio></td>
       <td><audio controls=""><source src="assets/demos/reconstruction_demo/musetok-small/id19336_bar0.wav" type="audio/mpeg" /></audio></td>
       <td><audio controls=""><source src="assets/demos/reconstruction_demo/musetok-large/id19336_bar0.wav" type="audio/mpeg" /></audio></td>
-    </tr>
-    <tr>
-      <td><audio controls=""><source src="assets/demos/reconstruction_demo/original/id25_bar0_orig.wav" type="audio/mpeg" /></audio></td>
-      <td><audio controls=""><source src="assets/demos/reconstruction_demo/vae/id25_bar0.wav" type="audio/mpeg" /></audio></td>
-      <td><audio controls=""><source src="assets/demos/reconstruction_demo/musetok-small/id25_bar0.wav" type="audio/mpeg" /></audio></td>
-      <td><audio controls=""><source src="assets/demos/reconstruction_demo/musetok-large/id25_bar0.wav" type="audio/mpeg" /></audio></td>
-    </tr>
-    <tr>
-      <td><audio controls=""><source src="assets/demos/reconstruction_demo/original/id153_bar0_orig.wav" type="audio/mpeg" /></audio></td>
-      <td><audio controls=""><source src="assets/demos/reconstruction_demo/vae/id153_bar0.wav" type="audio/mpeg" /></audio></td>
-      <td><audio controls=""><source src="assets/demos/reconstruction_demo/musetok-small/id153_bar0.wav" type="audio/mpeg" /></audio></td>
-      <td><audio controls=""><source src="assets/demos/reconstruction_demo/musetok-large/id153_bar0.wav" type="audio/mpeg" /></audio></td>
     </tr>
   </tbody>
 </table>
@@ -181,7 +181,7 @@ The generation performance on objective and subjective metrics is presented belo
   <figcaption><strong>Fig.2</strong> Objective and subjective evaluations on music generation.</figcaption>
 </div>
 
-Some music primers and continuation samples presented to users during the listening test are shown below:
+Below are some example music primers and their corresponding continuations that were presented to participants during the listening test:
 
 <table class="audio-table">
   <thead>
@@ -194,16 +194,16 @@ Some music primers and continuation samples presented to users during the listen
   </thead>
   <tbody>
     <tr>
-      <td><audio controls=""><source src="assets/demos/continuation_demo/primer_96.wav" type="audio/mpeg" /></audio></td>
-      <td><audio controls=""><source src="assets/demos/continuation_demo/MuseTok_96.wav" type="audio/mpeg" /></audio></td>
-      <td><audio controls=""><source src="assets/demos/continuation_demo/REMI_96.wav" type="audio/mpeg" /></audio></td>
-      <td><audio controls=""><source src="assets/demos/continuation_demo/AMT_96.wav" type="audio/mpeg" /></audio></td>
-    </tr>
-    <tr>
       <td><audio controls=""><source src="assets/demos/continuation_demo/primer_19033.wav" type="audio/mpeg" /></audio></td>
       <td><audio controls=""><source src="assets/demos/continuation_demo/MuseTok_19033.wav" type="audio/mpeg" /></audio></td>
       <td><audio controls=""><source src="assets/demos/continuation_demo/REMI_19033.wav" type="audio/mpeg" /></audio></td>
       <td><audio controls=""><source src="assets/demos/continuation_demo/AMT_19033.wav" type="audio/mpeg" /></audio></td>
+    </tr>
+    <tr>
+      <td><audio controls=""><source src="assets/demos/continuation_demo/primer_96.wav" type="audio/mpeg" /></audio></td>
+      <td><audio controls=""><source src="assets/demos/continuation_demo/MuseTok_96.wav" type="audio/mpeg" /></audio></td>
+      <td><audio controls=""><source src="assets/demos/continuation_demo/REMI_96.wav" type="audio/mpeg" /></audio></td>
+      <td><audio controls=""><source src="assets/demos/continuation_demo/AMT_96.wav" type="audio/mpeg" /></audio></td>
     </tr>
     <tr>
       <td><audio controls=""><source src="assets/demos/continuation_demo/primer_180.wav" type="audio/mpeg" /></audio></td>
@@ -212,10 +212,10 @@ Some music primers and continuation samples presented to users during the listen
       <td><audio controls=""><source src="assets/demos/continuation_demo/AMT_180.wav" type="audio/mpeg" /></audio></td>
     </tr>
     <tr>
-      <td><audio controls=""><source src="assets/demos/continuation_demo/primer_19074.wav" type="audio/mpeg" /></audio></td>
-      <td><audio controls=""><source src="assets/demos/continuation_demo/MuseTok_19074.wav" type="audio/mpeg" /></audio></td>
-      <td><audio controls=""><source src="assets/demos/continuation_demo/REMI_19074.wav" type="audio/mpeg" /></audio></td>
-      <td><audio controls=""><source src="assets/demos/continuation_demo/AMT_19074.wav" type="audio/mpeg" /></audio></td>
+      <td><audio controls=""><source src="assets/demos/continuation_demo/primer_19140.wav" type="audio/mpeg" /></audio></td>
+      <td><audio controls=""><source src="assets/demos/continuation_demo/MuseTok_19140.wav" type="audio/mpeg" /></audio></td>
+      <td><audio controls=""><source src="assets/demos/continuation_demo/REMI_19140.wav" type="audio/mpeg" /></audio></td>
+      <td><audio controls=""><source src="assets/demos/continuation_demo/AMT_19140.wav" type="audio/mpeg" /></audio></td>
     </tr>
     <tr>
       <td><audio controls=""><source src="assets/demos/continuation_demo/primer_19100.wav" type="audio/mpeg" /></audio></td>
@@ -226,7 +226,7 @@ Some music primers and continuation samples presented to users during the listen
   </tbody>
 </table>
 
-When handling long-context primers, MuseTok demonstrates greater robustness comparing to REMI-like generation framework.
+When handling long-context primers, MuseTok demonstrates greater robustness compared to REMI-like generation frameworks:
 
 <table class="audio-table">
   <thead>
@@ -260,22 +260,22 @@ When handling long-context primers, MuseTok demonstrates greater robustness comp
 </table>
 
 
-We also present generation samples from MuseTok without primers here to comprehensively show its effectiveness on content generation. 
+We also present generation samples from MuseTok without primers here to show its effectiveness on content generation:
 
 <table class="audio-table">
   <tbody>
     <tr>
-      <td><audio controls=""><source src="assets/demos/generation_demo/example_n8_s1024_d128.wav" type="audio/mpeg" /></audio></td>
-      <td><audio controls=""><source src="assets/demos/generation_demo/id15_sample01_temp1.2_p0.9.wav" type="audio/mpeg" /></audio></td>
-      <td><audio controls=""><source src="assets/demos/generation_demo/id16_sample01_temp1.1_p0.8.wav" type="audio/mpeg" /></audio></td>
-      <td><audio controls=""><source src="assets/demos/generation_demo/id5_sample01_temp1.1_p0.9_k50.wav" type="audio/mpeg" /></audio></td>
+      <td><audio controls=""><source src="assets/demos/generation_demo/example1.wav" type="audio/mpeg" /></audio></td>
+      <td><audio controls=""><source src="assets/demos/generation_demo/example2.wav" type="audio/mpeg" /></audio></td>
+      <td><audio controls=""><source src="assets/demos/generation_demo/example3.wav" type="audio/mpeg" /></audio></td>
+      <td><audio controls=""><source src="assets/demos/generation_demo/example4.wav" type="audio/mpeg" /></audio></td>
     </tr>
   </tbody>
 </table>
 
 # How MuseTok Learns Music?
 
-To further discover the music concepts learned through MuseTok, we examine the the usage frequency of codes across different **music textures** and **time signatures**. Here we show the frequency of the 50 most used codes in each texture group or time signature group across **all** eight quantization depths. 
+To further discover the music concepts learned through MuseTok, we examine the usage frequency of codes across different **music textures** and **time signatures**. Here we show the frequency of the 50 most used codes in each texture group or time signature group across **all** eight quantization depths. 
 
 ## Music Textures
 

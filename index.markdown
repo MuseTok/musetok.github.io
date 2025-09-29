@@ -1,7 +1,7 @@
 ---
 layout: home
 title: MuseTok
-description: Symbolic Music Tokenization for Hierarchical Generation and Semantic Understanding
+description: Symbolic Music Tokenization for Generation and Semantic Understanding
 ---
 
 # Introduction
@@ -9,25 +9,27 @@ description: Symbolic Music Tokenization for Hierarchical Generation and Semanti
 In this paper, we propose **MuseTok**, a tokenization method for symbolic music, and investigate its effectiveness in both music generation and understanding tasks. MuseTok employs RQ-VAE on bar-wise music segments within a transformer-based encoder-decoder framework, producing music codes that achieve **high-fidelity music reconstruction** and **accurate understanding of music theory**. We further applied learned MuseTok to **music generation** and **semantic understanding** tasks, to comprehensively evaluate the quality of such representations.
 
 <div align="center">
-  <img src="figures/overview.png" width=800 alt="">
-  <figcaption><strong>Fig.1</strong> Overview of MuseTok (left), with downstream generation tasks (top right) and understanding tasks (bottom right).</figcaption>
+  <img src="figures/overview_2.png" width=800 alt="">
+  <figcaption><strong>Fig.1</strong> Overview of MuseTok (left) and its downstream generation (middle) and understanding (right) tasks.</figcaption>
 </div>
 
-We provide audio demonstrations and additional experimental results to supplement experiment sections of the paper, organized as follows:
-* Dataset (for Section 4.1)
+We provide audio demonstrations and additional experimental details to supplement experiment sections of the paper, organized as follows:
+* Dataset Statistics & Examples (for Section 4.1)
 * Music Reconstruction (for Section 4.2)
 * Music Continuation (for Section 4.3)
 * How MuseTok Learns Music (for Section 4.5)
 
-# Dataset
+# Dataset Statistics & Examples
 
-We utilize public-domain music data for model training, with representative samples provided below to show the characteristics of our datasets:
+We utilize public-domain music data for model training, with representative samples provided below to show the characteristics of our datasets. The #bars are averaged over a dataset, while #events are averaged per bar.
 
 <table class="audio-table">
   <thead>
     <tr class="header">
     <th>Dataset</th>
     <th># pieces</th>
+    <th># bars</th>
+    <th># events</th>
     <th>Genres</th>
     <th>Sample1</th>
     <th>Sample2</th>
@@ -37,13 +39,17 @@ We utilize public-domain music data for model training, with representative samp
     <tr>
       <td>PDMX-monophonic [1]</td>
       <td>163,366</td>
+      <td>27.36</td>
+      <td>19.33</td>
       <td>mixed</td>
       <td><audio controls=""><source src="assets/demos/dataset_demo/PDMX-mono_1.wav" type="audio/mpeg" /></audio></td>
       <td><audio controls=""><source src="assets/demos/dataset_demo/PDMX-mono_2.wav" type="audio/mpeg" /></audio></td>
     </tr>
     <tr>
-      <td>PDMX-contrapuntal [1]</td>
+      <td>PDMX-chorale [1]</td>
       <td>25,597</td>
+      <td>35.24</td>
+      <td>44.77</td>
       <td>mixed</td>
       <td><audio controls=""><source src="assets/demos/dataset_demo/PDMX-contra_1.wav" type="audio/mpeg" /></audio></td>
       <td><audio controls=""><source src="assets/demos/dataset_demo/PDMX-contra_2.wav" type="audio/mpeg" /></audio></td>
@@ -51,6 +57,8 @@ We utilize public-domain music data for model training, with representative samp
     <tr>
       <td>POP909 [2]</td>
       <td>886</td>
+      <td>83.52</td>
+      <td>62.31</td>
       <td>pop</td>
       <td><audio controls=""><source src="assets/demos/dataset_demo/pop909_1.wav" type="audio/mpeg" /></audio></td>
       <td><audio controls=""><source src="assets/demos/dataset_demo/pop909_2.wav" type="audio/mpeg" /></audio></td>
@@ -58,6 +66,8 @@ We utilize public-domain music data for model training, with representative samp
     <tr>
       <td>EMOPIA [3]</td>
       <td>1,071</td>
+      <td>17.79</td>
+      <td>46.73</td>
       <td>pop</td>
       <td><audio controls=""><source src="assets/demos/dataset_demo/emopia_1.wav" type="audio/mpeg" /></audio></td>
       <td><audio controls=""><source src="assets/demos/dataset_demo/emopia_2.wav" type="audio/mpeg" /></audio></td>
@@ -65,6 +75,8 @@ We utilize public-domain music data for model training, with representative samp
     <tr>
       <td>Pop1k7 [4]</td>
       <td>1,747</td>
+      <td>104.59</td>
+      <td>39.39</td>
       <td>pop</td>
       <td><audio controls=""><source src="assets/demos/dataset_demo/pop1k7_1.wav" type="audio/mpeg" /></audio></td>
       <td><audio controls=""><source src="assets/demos/dataset_demo/pop1k7_2.wav" type="audio/mpeg" /></audio></td>
@@ -72,6 +84,8 @@ We utilize public-domain music data for model training, with representative samp
     <tr>
       <td>Hymnal [5]</td>
       <td>1,606</td>
+      <td>18.47</td>
+      <td>47.05</td>
       <td>folk</td>
       <td><audio controls=""><source src="assets/demos/dataset_demo/Hymnal_1.wav" type="audio/mpeg" /></audio></td>
       <td><audio controls=""><source src="assets/demos/dataset_demo/Hymnal_2.wav" type="audio/mpeg" /></audio></td>
@@ -79,6 +93,8 @@ We utilize public-domain music data for model training, with representative samp
     <tr>
       <td>Multipianomide [6]</td>
       <td>457</td>
+      <td>95.64</td>
+      <td>47.89</td>
       <td>classical</td>
       <td><audio controls=""><source src="assets/demos/dataset_demo/Multipianomide_1.wav" type="audio/mpeg" /></audio></td>
       <td><audio controls=""><source src="assets/demos/dataset_demo/Multipianomide_2.wav" type="audio/mpeg" /></audio></td>
@@ -86,9 +102,20 @@ We utilize public-domain music data for model training, with representative samp
     <tr>
       <td>Ragtime [7]</td>
       <td>457</td>
+      <td>139.16</td>
+      <td>49.32</td>
       <td>jazz</td>
       <td><audio controls=""><source src="assets/demos/dataset_demo/ragtime_1.wav" type="audio/mpeg" /></audio></td>
       <td><audio controls=""><source src="assets/demos/dataset_demo/ragtime_2.wav" type="audio/mpeg" /></audio></td>
+    </tr>
+    <tr>
+      <td>Summary </td>
+      <td>195,187</td>
+      <td>29.21</td>
+      <td>24.30</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
     </tr>
   </tbody>
 </table>
@@ -275,14 +302,14 @@ We also present generation samples from MuseTok without primers here to show its
 
 # How MuseTok Learns Music?
 
-To further discover the music concepts learned through MuseTok, we examine the usage frequency of codes across different **music textures** and **time signatures**. Here we show the frequency of the 50 most used codes in each texture group or time signature group across **all** eight quantization depths. 
+To further discover the music concepts learned through MuseTok, we examine the usage frequency of codes across different **music textures** and **time signatures**. Here we show the frequency of the 50 most used codes in each texture group or time signature group across **all** eight codebooks. 
 
 ## Music Textures
 
-The top-50 frequently used codes in different texture groups are largely distinct at all layers.
+The top-50 frequently used codes in different texture groups are largely distinct at all codebooks.
 
 <div align="center">
-  <img src="figures/code_usage_texture.png" width=600 alt="">
+  <img src="figures/code_usage_texture_2.png" width=800 alt="">
   <figcaption><strong>Fig.3</strong> Top-50 used codes across three texture groups in all quantization depths.</figcaption>
 </div>
 
@@ -292,7 +319,7 @@ The top-50 frequently used codes in different texture groups are largely distinc
 MuseTok almost omits the time signature difference in the first codebook, but gradually diverges in deeper codebooks.
 
 <div align="center">
-  <img src="figures/code_usage_time.png" width=600 alt="">
+  <img src="figures/code_usage_time_2.png" width=800 alt="">
   <figcaption><strong>Fig.4</strong> Top-50 used codes across six time signatures in all quantization depths.</figcaption>
 </div>
 

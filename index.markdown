@@ -9,7 +9,7 @@ description: Symbolic Music Tokenization for Generation and Semantic Understandi
 In this paper, we propose **MuseTok**, a tokenization method for symbolic music, and investigate its effectiveness in both music generation and understanding tasks. MuseTok employs RQ-VAE on bar-wise music segments within a transformer-based encoder-decoder framework, producing music codes that achieve **high-fidelity music reconstruction** and **accurate understanding of music theory**. We further applied learned MuseTok to **music generation** and **semantic understanding** tasks, to comprehensively evaluate the quality of such representations.
 
 <div align="center">
-  <img src="figures/overview_2.png" width=800 alt="">
+  <img src="figures/overview_2.png" style="width:80%;" alt="">
   <figcaption><strong>Fig.1</strong> Overview of MuseTok (left) and its downstream generation (middle) and understanding (right) tasks.</figcaption>
 </div>
 
@@ -309,7 +309,7 @@ To further discover the music concepts learned through MuseTok, we examine the u
 The top-50 frequently used codes in different texture groups are largely distinct at all codebooks.
 
 <div align="center">
-  <img src="figures/code_usage_texture_2.png" width=800 alt="">
+  <img src="figures/code_usage_texture_2.png" style="width:80%;" alt="">
   <figcaption><strong>Fig.3</strong> Top-50 used codes across three texture groups in all quantization depths.</figcaption>
 </div>
 
@@ -319,7 +319,7 @@ The top-50 frequently used codes in different texture groups are largely distinc
 MuseTok almost omits the time signature difference in the first codebook, but gradually diverges in deeper codebooks.
 
 <div align="center">
-  <img src="figures/code_usage_time_2.png" width=800 alt="">
+  <img src="figures/code_usage_time_2.png" style="width:80%;" alt="">
   <figcaption><strong>Fig.4</strong> Top-50 used codes across six time signatures in all quantization depths.</figcaption>
 </div>
 
